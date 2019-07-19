@@ -63,7 +63,7 @@ const validationSchema = Yup.object({
         .required('License is requires'),
     dataLicense: Yup.string()
         .required('License is requires')
-})
+});
 
 
 const Form = props => {
@@ -109,9 +109,8 @@ const Form = props => {
                 <TextField
                     id="title"
                     label="Required"
-                    style={{margin: 8}}
+                    style={{margin: 8, width: '70%'}}
                     placeholder="Title"
-                    fullWidth
                     required
                     helperText={touched.title ? errors.title : ""}
                     error={touched.title && Boolean(errors.title)}
@@ -129,10 +128,11 @@ const Form = props => {
                 <TextField
                     id="abstract"
                     label="Required"
-                    style={{margin: 8}}
+                    style={{margin: 8, width: '70%'}}
                     placeholder="Abstract"
-                    fullWidth
                     required
+                    multiline
+                    rows={3}
                     helperText={touched.abstract ? errors.abstract : ""}
                     error={touched.abstract && Boolean(errors.abstract)}
                     value={abstract}
@@ -171,10 +171,10 @@ const Form = props => {
                 <TextField
                     id="displayFile"
                     label="displayFile"
-                    style={{margin: 8}}
+                    style={{margin: 8, width: '10%'}}
                     placeholder="display.html"
-                    fullWidth
                     required
+                    select
                     helperText={touched.displayFile ? errors.displayFile : ""}
                     error={touched.displayFile && Boolean(errors.displayFile)}
                     value={displayFile}
@@ -183,7 +183,13 @@ const Form = props => {
                     variant="outlined"
                     InputLabelProps={{
                         shrink: true,
-                    }}/>
+                    }}>
+                    {props.displayCandidates.map(option => (
+                        <MenuItem key={option} value={option}>
+                            {option}
+                        </MenuItem>
+                    ))}
+                </TextField>
             </Card>
             <br/>
             <Card>
@@ -191,9 +197,9 @@ const Form = props => {
                 <TextField
                     id="mainFile"
                     label="mainFile"
-                    style={{margin: 8}}
+                    select
+                    style={{margin: 8, width: '10%'}}
                     placeholder="main.Rmd"
-                    fullWidth
                     required
                     helperText={touched.mainFile ? errors.mainFile : ""}
                     error={touched.mainFile && Boolean(errors.mainFile)}
@@ -203,23 +209,31 @@ const Form = props => {
                     variant="outlined"
                     InputLabelProps={{
                         shrink: true,
-                    }}/>
+                    }}>
+                    {props.mainFileCandidates.map(option => (
+                        <MenuItem key={option} value={option}>
+                            {option}
+                        </MenuItem>
+                    ))}
+                </TextField>
             </Card>
             <br/>
             <Card>
                 <h4>Licenses</h4>
-                <p>Templates</p>
-                <Button onClick={handleClick.bind(null, "mostRestrictive")}
-                >MOST RESTRICTIVE</Button>
-                <Button onClick={handleClick.bind(null, "leastRestrictive")}
-                >LEAST RESTRICTIVE</Button>
+                <div>
+                    <p>Templates</p>
+                    <Button onClick={handleClick.bind(null, "mostRestrictive")}
+                    >MOST RESTRICTIVE</Button>
+                    <Button onClick={handleClick.bind(null, "leastRestrictive")}
+                    >LEAST RESTRICTIVE</Button>
+                </div>
+
                 <TextField
                     id="textLicense"
                     select
                     label="Text License"
-                    style={{margin: 8}}
+                    style={{margin: 8, width: '70%'}}
                     required
-                    fullWidth
                     helperText={touched.textLicense ? errors.textLicense : ""}
                     error={touched.textLicense && Boolean(errors.textLicense)}
                     value={textLicense}
@@ -237,9 +251,8 @@ const Form = props => {
                     id="codeLicense"
                     select
                     label="Code License"
-                    style={{margin: 8}}
+                    style={{margin: 8, width: '70%'}}
                     required
-                    fullWidth
                     helperText={touched.codeLicense ? errors.codeLicense : ""}
                     error={touched.codeLicense && Boolean(errors.codeLicense)}
                     value={codeLicense}
@@ -257,9 +270,8 @@ const Form = props => {
                     id="dataLicense"
                     select
                     label="Data License"
-                    style={{margin: 8}}
+                    style={{margin: 8, width: '70%'}}
                     required
-                    fullWidth
                     helperText={touched.dataLicense ? errors.dataLicense : ""}
                     error={touched.dataLicense && Boolean(errors.dataLicense)}
                     value={dataLicense}
@@ -276,7 +288,6 @@ const Form = props => {
             </Card>
             <Button
                 type="submit"
-                fullWidth
                 variant="raised"
                 color="primary"
                 disabled={!isValid}
@@ -301,6 +312,8 @@ class App extends Component {
             dataLicense: "",
             textLicense: "",
             codeLicense: "",
+            displayCandidates: ["s", "a"],
+            mainFileCandidates: ["s", "a"],
             authors: [{author: "nick", affiliation: "o2r2", orcid: "2"}, {
                 author: "tom",
                 affiliation: "o2r2",
@@ -349,7 +362,10 @@ class App extends Component {
 
                 {//this.state.metadata &&
                     <Formik
-                        render={props => <Form{...props} authors={this.state.authors} onUpdate={this.updateAuthors}/>}
+                        render={props => <Form{...props} authors={this.state.authors}
+                                              displayCandidates={this.state.displayCandidates}
+                                              mainFileCandidates={this.state.mainFileCandidates}
+                                              onUpdate={this.updateAuthors}/>}
                         initialValues={this.state}
                         validationSchema={validationSchema}
                     />

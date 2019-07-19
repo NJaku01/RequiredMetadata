@@ -35,7 +35,7 @@ class Authors extends Component {
 
         authors.splice(i, 1);
 
-        this.props.onUpdate(authors)
+        this.props.onUpdate(authors);
         if (authors.length > 1) {
             this.setState({deletable: true});
         } else {
@@ -63,29 +63,6 @@ class Authors extends Component {
                     />
                 )}
 
-                <IconButton aria-Label="Edit"
-                            onClick={this.handleExpandClick}
-                            aria-expanded={this.state.expanded}
-                            color="primary"
-                >
-                    <i className="material-icons">
-                        add
-                    </i>
-                </IconButton>
-
-                <Collapse in={this.state.expanded}>
-                    < Formik
-                        onSubmit={(values, actions) => {
-                            this.setState({expanded: !this.state.expanded});
-                            this.props.onUpdate(this.props.authors.concat(values));
-                            this.setState({deletable: true});
-                            }
-                        }
-                        render={props => <AuthorForm{...props} method={"Add"}/>
-                        }
-                        validationSchema={authorValidationSchema}
-                    />
-                </Collapse>
             </Card>
         )
     }

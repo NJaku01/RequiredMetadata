@@ -24,13 +24,17 @@ export const AuthorForm = props => {
         e.persist();
         e.target.name = name;
         handleChange(e);
-        setFieldTouched(name, true, false)
+        setFieldTouched(name, true, false);
     };
+
+    function update() {
+        props.onChange(props.id, props.values);
+    }
 
 
 
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form>
 
             <TextField
                 id="author"
@@ -42,6 +46,7 @@ export const AuthorForm = props => {
                 error={touched.author && Boolean(errors.author)}
                 value={author}
                 onChange={change.bind(null, "author")}
+                onBlur={update}
                 margin="normal"
                 variant="outlined"
                 InputLabelProps={{
@@ -55,6 +60,7 @@ export const AuthorForm = props => {
                 helperText={touched.affiliation ? errors.affiliation : ""}
                 error={touched.affiliation && Boolean(errors.affiliation)}
                 value={affiliation}
+                onBlur={update}
                 onChange={change.bind(null, "affiliation")}
                 margin="normal"
                 variant="outlined"
@@ -69,22 +75,13 @@ export const AuthorForm = props => {
                 helperText={touched.orcid ? errors.orcid : ""}
                 error={touched.orcid && Boolean(errors.orcid)}
                 value={orcid}
+                onBlur={update}
                 onChange={change.bind(null, "orcid")}
                 margin="normal"
                 variant="outlined"
                 InputLabelProps={{
                     shrink: true,
                 }}/>
-
-            <Button
-                type="submit"
-                fullWidth
-                variant="raised"
-                color="primary"
-                disabled={!isValid}
-            >
-                {props.method} Author
-            </Button>
 
         </form>)
 };

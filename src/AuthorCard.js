@@ -14,50 +14,47 @@ function AuthorCard(props) {
         setExpanded(!expanded);
     }
 
+    const self = props;
+
     return (
 
         <Card id="authorcard">
 
+
             <CardContent>
-                <p>{props.author.author}</p>
-                <p>{props.author.affiliation}</p>
-                <p>{props.author.orcid}</p>
-            </CardContent>
-            <CardActions disableSpacing>
-                <IconButton aria-Label="Edit"
-                            onClick={handleExpandClick}
-                            aria-expanded={expanded}
-                            color="primary"
-                >
-                    <i className="material-icons">
-                        create
-                    </i>
-                </IconButton>
-                {props.deletable ?
-                    <IconButton aria-Label="Delete"
-                                onClick={() => props.handleDelete()}
-                                color="primary"
-                    >
-                        <i className="material-icons">
-                            delete
-                        </i>
-                    </IconButton>
-                    : ''}
-            </CardActions>
-            <Collapse in={expanded}>
-                <CardContent>
+                <div class="form">
                     <Formik
                         onSubmit={(values, actions) => {
                             props.handleUpdate(props.id, values);
                             handleExpandClick();
                         }}
-                        render={props => <AuthorForm{...props} method={"Update"}/>}
+                        render={props => <AuthorForm{...props} method={"Update"} onChange={self.handleUpdate}
+                                                    id={self.id}/>}
                         initialValues={props.author}
                         validationSchema={authorValidationSchema}
                     />
-                </CardContent>
-            </Collapse>
+
+                </div>
+                <div>
+
+
+                    {props.deletable ?
+                        <IconButton aria-Label="Delete"
+                                    onClick={() => props.handleDelete()}
+                                    color="primary"
+                        >
+                            <i className="material-icons">
+                                delete
+                            </i>
+                        </IconButton>
+                        : ''}
+                </div>
+            </CardContent>
+
+
+            <br/>
         </Card>
+
     );
 
 }

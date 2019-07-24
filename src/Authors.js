@@ -47,6 +47,16 @@ class Authors extends Component {
         this.props.onUpdate(authors);
     };
 
+    handleClick = () => {
+        this.setState({deletable: true});
+        this.props.onUpdate(this.props.authors.concat({
+            author: "",
+            affiliation: "",
+            orcid: ""
+        }))
+    };
+
+
     render() {
         return (
             <Card>
@@ -66,11 +76,7 @@ class Authors extends Component {
                 </CardContent>
 
                 <IconButton aria-label="Add"
-                            onClick={() => this.props.onUpdate(this.props.authors.concat({
-                                author: "",
-                                affiliation: "",
-                                orcid: ""
-                            }))}
+                            onClick={this.handleClick}
                             color="primary"
                 >
                     <i className="material-icons">

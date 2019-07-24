@@ -1,5 +1,4 @@
-import {Card, CardActions, CardContent, Collapse, IconButton} from "@material-ui/core";
-import {create} from "material-design-icons";
+import {Card, CardContent, IconButton} from "@material-ui/core";
 import {Formik} from "formik";
 import React from "react";
 import {AuthorForm, authorValidationSchema} from "./AuthorForm";
@@ -15,14 +14,12 @@ function AuthorCard(props) {
     }
 
     const self = props;
-
     return (
 
         <Card id="authorcard">
 
-
             <CardContent>
-                <div class="form">
+                <div>
                     <Formik
                         onSubmit={(values, actions) => {
                             props.handleUpdate(props.id, values);
@@ -36,10 +33,8 @@ function AuthorCard(props) {
 
                 </div>
                 <div>
-
-
                     {props.deletable ?
-                        <IconButton aria-Label="Delete"
+                        <IconButton aria-label="Delete"
                                     onClick={() => props.handleDelete()}
                                     color="primary"
                         >
@@ -51,8 +46,6 @@ function AuthorCard(props) {
                 </div>
             </CardContent>
 
-
-            <br/>
         </Card>
 
     );

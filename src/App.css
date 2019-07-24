@@ -31,3 +31,12 @@
         transform: rotate(360deg);
     }
 }
+
+#form {
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
+#authorcard {
+    margin-bottom: 12px;
+}

@@ -1,8 +1,6 @@
 import React, {Component} from "react";
 import AuthorCard from "./AuthorCard"
-import { Collapse, Card, IconButton, CardActions} from "@material-ui/core";
-import {Formik} from "formik";
-import {AuthorForm, authorValidationSchema} from "./AuthorForm";
+import {Card, IconButton, CardContent} from "@material-ui/core";
 
 
 class Authors extends Component {
@@ -52,18 +50,36 @@ class Authors extends Component {
     render() {
         return (
             <Card>
-                {this.props.authors.map((item, index) =>
-                    <AuthorCard
-                        key={index}
-                        id={index}
-                        author={item}
-                        deletable={this.state.deletable}
-                        handleDelete={() => this.handleDelete(index)}
-                        handleUpdate={this.handleUpdate}
-                    />
-                )}
+                <CardContent>
+                    <h4>Authors</h4>
+                    {this.props.authors.map((item, index) =>
+                        <AuthorCard
+                            key={index}
+                            id={index}
+                            author={item}
+                            deletable={this.state.deletable}
+                            handleDelete={() => this.handleDelete(index)}
+                            handleUpdate={this.handleUpdate}
+                        />
+                    )}
+                    <br/>
+                </CardContent>
+
+                <IconButton aria-label="Add"
+                            onClick={() => this.props.onUpdate(this.props.authors.concat({
+                                author: "",
+                                affiliation: "",
+                                orcid: ""
+                            }))}
+                            color="primary"
+                >
+                    <i className="material-icons">
+                        add
+                    </i>
+                </IconButton>
 
             </Card>
+
         )
     }
 }

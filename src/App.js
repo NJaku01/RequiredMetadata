@@ -1,8 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 
 import React, {Component} from 'react';
-import {Card, TextField, Button, MenuItem} from "@material-ui/core";
+import {Card, TextField, Button, MenuItem, CardContent} from "@material-ui/core";
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 
@@ -75,7 +74,7 @@ const Form = props => {
         isValid,
         setFieldTouched,
         setFieldValue
-    } = props
+    } = props;
 
 
     const change = (name, e) => {
@@ -86,7 +85,6 @@ const Form = props => {
     };
 
     const handleClick = (name, e) => {
-        console.log(name);
         if (name === "mostRestrictive") {
             setFieldValue('textLicense', mostRestrictiveData[0]);
             setFieldValue('codeLicense', mostRestrictiveData[1]);
@@ -99,193 +97,206 @@ const Form = props => {
     };
 
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form id="form" onSubmit={props.handleSubmit}>
             <br/>
             <Card>
-                <h4>Title</h4>
-                <TextField
-                    id="title"
-                    label="Required"
-                    style={{margin: 8, width: '70%'}}
-                    placeholder="Title"
-                    required
-                    helperText={touched.title ? errors.title : ""}
-                    error={touched.title && Boolean(errors.title)}
-                    value={title}
-                    onChange={change.bind(null, "title")}
-                    margin="normal"
-                    variant="outlined"
-                    InputLabelProps={{
-                        shrink: true,
-                    }}/>
+                <CardContent>
+                    <h4>Title</h4>
+                    <TextField
+                        id="title"
+                        label="Required"
+                        style={{margin: 8, width: '70%'}}
+                        placeholder="Title"
+                        required
+                        helperText={touched.title ? errors.title : ""}
+                        error={touched.title && Boolean(errors.title)}
+                        value={title}
+                        onChange={change.bind(null, "title")}
+                        margin="normal"
+                        variant="outlined"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}/>
+                </CardContent>
             </Card>
             <br/>
             <Card>
-                <h4>Abstract</h4>
-                <TextField
-                    id="abstract"
-                    label="Required"
-                    style={{margin: 8, width: '70%'}}
-                    placeholder="Abstract"
-                    required
-                    multiline
-                    rows={3}
-                    helperText={touched.abstract ? errors.abstract : ""}
-                    error={touched.abstract && Boolean(errors.abstract)}
-                    value={abstract}
-                    onChange={change.bind(null, "abstract")}
-                    margin="normal"
-                    variant="outlined"
-                    InputLabelProps={{
-                        shrink: true,
-                    }}/>
+                <CardContent>
+                    <h4>Abstract</h4>
+                    <TextField
+                        id="abstract"
+                        label="Required"
+                        style={{margin: 8, width: '70%'}}
+                        placeholder="Abstract"
+                        required
+                        multiline
+                        rows={3}
+                        helperText={touched.abstract ? errors.abstract : ""}
+                        error={touched.abstract && Boolean(errors.abstract)}
+                        value={abstract}
+                        onChange={change.bind(null, "abstract")}
+                        margin="normal"
+                        variant="outlined"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}/>
+                </CardContent>
             </Card>
             <br/>
-            <h4>Authors</h4>
             <Authors authors={props.authors} onUpdate={props.onUpdate}></Authors>
             <br/>
             <Card>
-                <h4>Publication Date</h4>
-                <TextField
-                    id="publicationDate"
-                    label="Publication date"
-                    type="date"
-                    style={{margin: 8}}
-                    required
-                    helperText={touched.publicationDate ? errors.publicationDate : ""}
-                    error={touched.publicationDate && Boolean(errors.publicationDate)}
-                    value={publicationDate}
-                    onChange={change.bind(null, "publicationDate")}
-                    margin="normal"
-                    variant="outlined"
-                    InputLabelProps={{
-                        shrink: true,
-                    }}/>
+                <CardContent>
+                    <h4>Publication Date</h4>
+                    <TextField
+                        id="publicationDate"
+                        label="Publication date"
+                        type="date"
+                        style={{margin: 8}}
+                        required
+                        helperText={touched.publicationDate ? errors.publicationDate : ""}
+                        error={touched.publicationDate && Boolean(errors.publicationDate)}
+                        value={publicationDate}
+                        onChange={change.bind(null, "publicationDate")}
+                        margin="normal"
+                        variant="outlined"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}/>
+                </CardContent>
             </Card>
             <br/>
             <Card>
-                <h4>Display File</h4>
-                <TextField
-                    id="displayFile"
-                    label="displayFile"
-                    style={{margin: 8, width: '10%'}}
-                    placeholder="display.html"
-                    required
-                    select
-                    helperText={touched.displayFile ? errors.displayFile : ""}
-                    error={touched.displayFile && Boolean(errors.displayFile)}
-                    value={displayFile}
-                    onChange={change.bind(null, "displayFile")}
-                    margin="normal"
-                    variant="outlined"
-                    InputLabelProps={{
-                        shrink: true,
-                    }}>
-                    {props.displayCandidates.map(option => (
-                        <MenuItem key={option} value={option}>
-                            {option}
-                        </MenuItem>
-                    ))}
-                </TextField>
+                <CardContent>
+                    <h4>Display File</h4>
+                    <TextField
+                        id="displayFile"
+                        label="displayFile"
+                        style={{margin: 8, width: '10%'}}
+                        placeholder="display.html"
+                        required
+                        select
+                        helperText={touched.displayFile ? errors.displayFile : ""}
+                        error={touched.displayFile && Boolean(errors.displayFile)}
+                        value={displayFile}
+                        onChange={change.bind(null, "displayFile")}
+                        margin="normal"
+                        variant="outlined"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}>
+                        {props.displayCandidates.map(option => (
+                            <MenuItem key={option} value={option}>
+                                {option}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                </CardContent>
             </Card>
             <br/>
             <Card>
-                <h4>Main File</h4>
-                <TextField
-                    id="mainFile"
-                    label="mainFile"
-                    select
-                    style={{margin: 8, width: '10%'}}
-                    placeholder="main.Rmd"
-                    required
-                    helperText={touched.mainFile ? errors.mainFile : ""}
-                    error={touched.mainFile && Boolean(errors.mainFile)}
-                    value={mainFile}
-                    onChange={change.bind(null, "mainFile")}
-                    margin="normal"
-                    variant="outlined"
-                    InputLabelProps={{
-                        shrink: true,
-                    }}>
-                    {props.mainFileCandidates.map(option => (
-                        <MenuItem key={option} value={option}>
-                            {option}
-                        </MenuItem>
-                    ))}
-                </TextField>
+                <CardContent>
+                    <h4>Main File</h4>
+                    <TextField
+                        id="mainFile"
+                        label="mainFile"
+                        select
+                        style={{margin: 8, width: '10%'}}
+                        placeholder="main.Rmd"
+                        required
+                        helperText={touched.mainFile ? errors.mainFile : ""}
+                        error={touched.mainFile && Boolean(errors.mainFile)}
+                        value={mainFile}
+                        onChange={change.bind(null, "mainFile")}
+                        margin="normal"
+                        variant="outlined"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}>
+                        {props.mainFileCandidates.map(option => (
+                            <MenuItem key={option} value={option}>
+                                {option}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                </CardContent>
             </Card>
             <br/>
             <Card>
-                <h4>Licenses</h4>
-                <div>
-                    <p>Templates</p>
-                    <Button onClick={handleClick.bind(null, "mostRestrictive")}
-                    >MOST RESTRICTIVE</Button>
-                    <Button onClick={handleClick.bind(null, "leastRestrictive")}
-                    >LEAST RESTRICTIVE</Button>
-                </div>
+                <CardContent>
+                    <h4>Licenses</h4>
+                    <div>
+                        <p>Templates</p>
+                        <Button variant="contained" color="primary" style={{margin: "8px"}}
+                                onClick={handleClick.bind(null, "mostRestrictive")}
+                        >MOST RESTRICTIVE</Button>
+                        <Button variant="contained" color="primary" style={{margin: "8px"}}
+                                onClick={handleClick.bind(null, "leastRestrictive")}
+                        >LEAST RESTRICTIVE</Button>
+                    </div>
 
-                <TextField
-                    id="textLicense"
-                    select
-                    label="Text License"
-                    style={{margin: 8, width: '70%'}}
-                    required
-                    helperText={touched.textLicense ? errors.textLicense : ""}
-                    error={touched.textLicense && Boolean(errors.textLicense)}
-                    value={textLicense}
-                    onChange={change.bind(null, "textLicense")}
-                    margin="normal"
-                    variant="outlined"
-                >
-                    {textLicenses.map(option => (
-                        <MenuItem key={option.id} value={option}>
-                            {option.title}
-                        </MenuItem>
-                    ))}
-                </TextField>
-                <TextField
-                    id="codeLicense"
-                    select
-                    label="Code License"
-                    style={{margin: 8, width: '70%'}}
-                    required
-                    helperText={touched.codeLicense ? errors.codeLicense : ""}
-                    error={touched.codeLicense && Boolean(errors.codeLicense)}
-                    value={codeLicense}
-                    onChange={change.bind(null, "codeLicense")}
-                    margin="normal"
-                    variant="outlined"
-                >
-                    {codeLicenses.map(option => (
-                        <MenuItem key={option.id} value={option}>
-                            {option.title}
-                        </MenuItem>
-                    ))}
-                </TextField>
-                <TextField
-                    id="dataLicense"
-                    select
-                    label="Data License"
-                    style={{margin: 8, width: '70%'}}
-                    required
-                    helperText={touched.dataLicense ? errors.dataLicense : ""}
-                    error={touched.dataLicense && Boolean(errors.dataLicense)}
-                    value={dataLicense}
-                    onChange={change.bind(null, "dataLicense")}
-                    margin="normal"
-                    variant="outlined"
-                >
-                    {dataLicenses.map(option => (
-                        <MenuItem key={option.id} value={option}>
-                            {option.title}
-                        </MenuItem>
-                    ))}
-                </TextField>
+                    <TextField
+                        id="textLicense"
+                        select
+                        label="Text License"
+                        style={{margin: 8, width: '70%'}}
+                        required
+                        helperText={touched.textLicense ? errors.textLicense : ""}
+                        error={touched.textLicense && Boolean(errors.textLicense)}
+                        value={textLicense}
+                        onChange={change.bind(null, "textLicense")}
+                        margin="normal"
+                        variant="outlined"
+                    >
+                        {textLicenses.map(option => (
+                            <MenuItem key={option.id} value={option}>
+                                {option.title}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                    <TextField
+                        id="codeLicense"
+                        select
+                        label="Code License"
+                        style={{margin: 8, width: '70%'}}
+                        required
+                        helperText={touched.codeLicense ? errors.codeLicense : ""}
+                        error={touched.codeLicense && Boolean(errors.codeLicense)}
+                        value={codeLicense}
+                        onChange={change.bind(null, "codeLicense")}
+                        margin="normal"
+                        variant="outlined"
+                    >
+                        {codeLicenses.map(option => (
+                            <MenuItem key={option.id} value={option}>
+                                {option.title}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                    <TextField
+                        id="dataLicense"
+                        select
+                        label="Data License"
+                        style={{margin: 8, width: '70%'}}
+                        required
+                        helperText={touched.dataLicense ? errors.dataLicense : ""}
+                        error={touched.dataLicense && Boolean(errors.dataLicense)}
+                        value={dataLicense}
+                        onChange={change.bind(null, "dataLicense")}
+                        margin="normal"
+                        variant="outlined"
+                    >
+                        {dataLicenses.map(option => (
+                            <MenuItem key={option.id} value={option}>
+                                {option.title}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                </CardContent>
             </Card>
             <Button
                 type="submit"
-                variant="raised"
+                variant="contained"
                 color="primary"
                 disabled={!isValid || !props.authorsValid}
             >
@@ -346,25 +357,25 @@ class App extends Component {
     componentDidMount() {
         //this.getMetadata()
         prepareLicense();
+        this.authorsNotNull();
     }
 
     updateAuthors = (value) => {
         this.setState({authors: value}, () => {
-        this.authorsNotNull()})
+            this.authorsNotNull()
+        })
     };
 
     authorsNotNull = () => {
 
-        console.log('test');
         let valid = true;
-        if (this.state.authors.length == 0 || this.state.authors == null) {
+        if (this.state.authors.length === 0 || this.state.authors === null) {
             valid = false;
         }
         for (var i in  this.state.authors) {
-            if (this.state.authors[i].author == "") {
+            if (this.state.authors[i].author === "") {
                 valid = false;
             }
-            console.log(this.state.authors[i].author)
         }
         this.setState({authorsValid: valid});
     };

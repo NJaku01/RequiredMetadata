@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import {Button, TextField} from "@material-ui/core";
+import {TextField} from "@material-ui/core";
 import React from "react";
 
 export const authorValidationSchema = Yup.object({
@@ -16,7 +16,6 @@ export const AuthorForm = props => {
         errors,
         touched,
         handleChange,
-        isValid,
         setFieldTouched,
     } = props;
 
@@ -30,7 +29,6 @@ export const AuthorForm = props => {
     function update() {
         props.onChange(props.id, props.values);
     }
-
 
 
     return (

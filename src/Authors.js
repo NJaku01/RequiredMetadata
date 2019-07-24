@@ -46,7 +46,7 @@ class Authors extends Component {
     handleUpdate = (i, value) => {
         const authors = this.props.authors.slice();
         authors[i] = value;
-        this.props.onUpdate(authors)
+        this.props.onUpdate(authors);
     };
 
     render() {

@@ -83,7 +83,7 @@ const Form = props => {
         e.target.name = name;
         handleChange(e);
         setFieldTouched(name, true, false)
-    }
+    };
 
     const handleClick = (name, e) => {
         console.log(name);
@@ -96,13 +96,10 @@ const Form = props => {
             setFieldValue('codeLicense', leastRestrictiveData[1]);
             setFieldValue('dataLicense', leastRestrictiveData[2]);
         }
-    }
+    };
 
     return (
-        <form
-            onSubmit={() => {
-                alert('submit');
-            }}>
+        <form onSubmit={props.handleSubmit}>
             <br/>
             <Card>
                 <h4>Title</h4>
@@ -290,7 +287,7 @@ const Form = props => {
                 type="submit"
                 variant="raised"
                 color="primary"
-                disabled={!isValid}
+                disabled={!isValid || !props.authorsValid}
             >
                 Submit
             </Button>
@@ -319,6 +316,7 @@ class App extends Component {
                 affiliation: "o2r2",
                 orcid: "2"
             }],
+            authorsValid: false,
         }
     };
 
@@ -351,8 +349,25 @@ class App extends Component {
     }
 
     updateAuthors = (value) => {
-        this.setState({authors: value})
-    }
+        this.setState({authors: value}, () => {
+        this.authorsNotNull()})
+    };
+
+    authorsNotNull = () => {
+
+        console.log('test');
+        let valid = true;
+        if (this.state.authors.length == 0 || this.state.authors == null) {
+            valid = false;
+        }
+        for (var i in  this.state.authors) {
+            if (this.state.authors[i].author == "") {
+                valid = false;
+            }
+            console.log(this.state.authors[i].author)
+        }
+        this.setState({authorsValid: valid});
+    };
 
     render() {
 
@@ -362,10 +377,17 @@ class App extends Component {
 
                 {//this.state.metadata &&
                     <Formik
+                        onSubmit={(values, actions) => {
+                            setTimeout(() => {
+                                alert(JSON.stringify(values, null, 2));
+                                actions.setSubmitting(false);
+                            }, 1000);
+                        }}
                         render={props => <Form{...props} authors={this.state.authors}
                                               displayCandidates={this.state.displayCandidates}
                                               mainFileCandidates={this.state.mainFileCandidates}
-                                              onUpdate={this.updateAuthors}/>}
+                                              onUpdate={this.updateAuthors}
+                                              authorsValid={this.state.authorsValid}/>}
                         initialValues={this.state}
                         validationSchema={validationSchema}
                     />
